@@ -5,8 +5,6 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch",
-    "start": "node dist/index.js",
     "start:llm-demo": "node --env-file=.env dist/llm-demo.js",
     "start:chat-demo": "node --env-file=.env dist/chat-demo.js"
   },
@@ -16,11 +14,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/dilbagh/llm-demo/issues"
-  },
   "homepage": "https://github.com/dilbagh/llm-demo#readme",
   "devDependencies": {
     "@types/node": "^25.5.0",
