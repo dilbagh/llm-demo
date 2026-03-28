@@ -1,0 +1,28 @@
+{
+  "name": "llm-demo",
+  "version": "1.0.0",
+  "description": "Workshop demo TypeScript project",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "start:llm-demo": "node --env-file=.env dist/llm-demo.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilbagh/llm-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dilbagh/llm-demo/issues"
+  },
+  "homepage": "https://github.com/dilbagh/llm-demo#readme",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}
