@@ -30,6 +30,7 @@ type OpenRouterResponse = {
 const apiKey = process.env.OPENROUTER_API_KEY;
 const baseUrl = "https://openrouter.ai/api/v1";
 const model = "openai/gpt-4o-mini";
+const maxLoggedMessageLength = 120;
 const systemPrompt =
   "You are a helpful assistant. Give clear, concise answers and ask brief follow-up questions only when needed.";
 
@@ -47,11 +48,34 @@ function prettyJson(value: unknown): string {
   return JSON.stringify(value, null, 2);
 }
 
+function normalizeMessageContent(content: string): string {
+  return content.replace(/\r?\n/g, " | ");
+}
+
+function truncateMessageContent(content: string): string {
+  if (content.length <= maxLoggedMessageLength) {
+    return content;
+  }
+
+  return `${content.slice(0, maxLoggedMessageLength - 3)}...`;
+}
+
+function formatMessagesTable(messages: ChatMessage[]): Array<{
+  role: ChatMessage["role"];
+  content: string;
+}> {
+  return messages.map((message) => ({
+    role: message.role,
+    content: truncateMessageContent(normalizeMessageContent(message.content)),
+  }));
+}
+
 function printRequest(requestBody: { model: string; messages: ChatMessage[] }): void {
   console.log("\n=== Request ===");
   console.log("POST", `${baseUrl}/chat/completions`);
-  console.log("Body:");
-  console.log(prettyJson(requestBody));
+  console.log("Model:", requestBody.model);
+  console.log("Messages:");
+  console.table(formatMessagesTable(requestBody.messages));
 }
 
 function printResponse(assistantText: string): void {
